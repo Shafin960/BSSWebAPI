@@ -49,31 +49,7 @@ namespace Services
             }) ;
         }
 
-        public async Task<TableResource> Get(int id)
-        {
-            var table = await _table.Entity.SingleOrDefaultAsync(it => it.Id == id);
-            if (table == null)
-            {
-                return null;
-            }
-            var getTableById = new TableResource
-            {
-                Id = id,
-                TableNumber = table.TableNumber,
-                Image = table.Image,
-                IsOccupied=table.IsOccupied,
-                Employees = table.EmployeeTables.Select(e => new EmployeeWithTableIdResource
-                {
-                    EmployeeTableId = e.TableId,
-                    EmployeeId = e.EmployeeId,
-                    Name = e.Employee.User.FullName,
-                }).ToList()
-            };
-           
-            return getTableById;
-
-        }
-
+       
         public async Task<IEnumerable<TableResource>> GetAll()
         {
             return await _table.Entity.GetAndSelectAsync(it => new TableResource
@@ -85,7 +61,7 @@ namespace Services
                 NumberOfSeats=it.NumberOfSeats,
                 Employees = it.EmployeeTables.Select(e => new EmployeeWithTableIdResource
                 {
-                    EmployeeTableId = e.TableId,
+                    EmployeeTableId = e.Id,
                     EmployeeId = e.EmployeeId,
                     Name = e.Employee.User.FullName,
                 }).ToList()
@@ -93,10 +69,21 @@ namespace Services
             });
         }
 
-        public async Task<TableCreateResource> SingleOrDefaultAndSelectAsync(int id) => await _table.Entity.SingleOrDefaultAndSelectAsync(
-            it => new TableCreateResource
+        public async Task<TableResource> SingleOrDefaultAndSelectAsync(int id)
+         => await _table.Entity.SingleOrDefaultAndSelectAsync(
+            it => new TableResource
             {
-               TableNumber = it.TableNumber,
+                Id= it.Id,
+                TableNumber = it.TableNumber,
+                Image = it.Image,
+                IsOccupied = it.IsOccupied,
+                NumberOfSeats= it.NumberOfSeats,
+                Employees=it.EmployeeTables.Select(e => new EmployeeWithTableIdResource
+                {
+                    EmployeeTableId = e.TableId,
+                    EmployeeId = e.EmployeeId,
+                    Name = e.Employee.User.FullName,
+                }).ToList()
             },
             it => it.Id == id
             );

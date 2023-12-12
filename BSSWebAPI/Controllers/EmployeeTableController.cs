@@ -40,10 +40,10 @@ namespace BSSWebAPI.Controllers
             }
             await _employeeTableService.Create(newModel);
         }
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public async Task Delete(int id)
         {
-            var employeeToDelete = await _employeeTableService.SingleOrDefaultAsync(id) ?? throw new Exception("Food not found");
+            var employeeToDelete = await _employeeTableService.SingleOrDefaultAsync(id) ?? throw new Exception("Employee table not found");
             await _employeeTableService.Delete(employeeToDelete);
         }
     }

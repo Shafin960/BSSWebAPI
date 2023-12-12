@@ -56,13 +56,24 @@ namespace Services
 
         public async Task<IEnumerable<EmployeeTableOptionsResource>> Get()
         {
-            
-            
+
+
             return await _employeeTable.Entity.GetAndSelectAsync(it => new EmployeeTableOptionsResource
             {
-                EmployeeTableId=it.Id,
+                EmployeeTableId = it.Id,
+                Employee = new EmployeeOptionsResource
+                {
+                    EmployeeId = it.Employee.Id,
+                    Name = it.Employee.User.FullName,
+                },
+                Table=new TableOptionsResource
+                {
+                    TableId=it.Table.Id,
+                    TableNumber=it.Table.TableNumber,
+                }
                 
-            });
+
+            }) ;
         }
 
         public async Task<EmployeeTableOptionsResource> SingleOrDefaultAndSelectAsync(int id) => await _employeeTable.Entity.SingleOrDefaultAndSelectAsync(

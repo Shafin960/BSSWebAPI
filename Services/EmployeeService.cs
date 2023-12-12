@@ -75,7 +75,7 @@ namespace Services
             return await _employee.Entity.GetAndSelectAsync(it => new EmployeeOptionsResource
             {
                 EmployeeId = it.Id,
-
+                Name=it.User.FullName,
             });
         }
 
@@ -105,6 +105,19 @@ namespace Services
                 Image=it.User.Image,
 
             });
+        }
+
+        public async Task<IEnumerable<EmployeeOptionsResource>> NonAssignedAsync(int tableId)
+        {
+            return await _employee.Entity.GetAndSelectAsync(
+            it => new EmployeeOptionsResource
+            {
+
+                EmployeeId = it.Id,
+                Name = it.User.FullName,
+            },
+            it => !it.EmployeeTables.Any(et => et.TableId == tableId)
+            );
         }
     }
 }

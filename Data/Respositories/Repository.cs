@@ -34,7 +34,7 @@ namespace Data.Respositories
             return Context.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<TEntity> SingleOrDefaultAsync(
+        public async Task<TEntity> SingleOrDefaultAndSelectAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken cancellationToken = default
             )

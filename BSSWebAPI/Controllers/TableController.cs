@@ -23,7 +23,7 @@ namespace BSSWebAPI.Controllers
 
         [HttpGet("get/{id}")]
 
-        public Task<TableResource> Get(int id) => _tableService.Get(id);
+        public Task<TableResource> Get(int id) => _tableService.SingleOrDefaultAndSelectAsync(id);
 
 
         [HttpGet("datatable")]

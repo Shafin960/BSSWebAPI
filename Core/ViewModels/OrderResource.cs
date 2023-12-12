@@ -15,8 +15,6 @@ namespace Core.ViewModels
         public OrderStatus OrderStatus { get; set; }
         public DateTime OrderTime { get; set; }
         public TableResource Table { get; set; }
-        public UserResource OrderedBy { get; set; }
-        public UserResource OrderTakenBy { get; set; }
         public List<OrderItemResource> OrderItems { get; set; }
 
 

@@ -1,12 +1,14 @@
 ﻿using Core.Services;
 using Core.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 
 namespace BSSWebAPI.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
@@ -14,12 +16,11 @@ namespace BSSWebAPI.Controllers
         {
             _employeeService = employeeService;
         }
-
         [HttpGet("get")]
         public Task<IEnumerable<EmployeeOptionsResource>> Get() => _employeeService.Get();
 
         [HttpGet("non-assigned-employees/{tableId}")]
-        public Task<IEnumerable<EmployeeOptionsResource>> Get(int tableId) => _employeeService.Get();
+        public Task<IEnumerable<EmployeeOptionsResource>> NonAssigned(int tableId) => _employeeService.NonAssignedAsync(tableId);
 
         [HttpGet("datatable")]
         public Task<IEnumerable<GetEmployeeVM>> GetAll() => _employeeService.GetAll();

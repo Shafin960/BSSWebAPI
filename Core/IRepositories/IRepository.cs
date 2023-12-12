@@ -24,7 +24,7 @@ namespace Core.IRepositories
 
 
         ValueTask<TEntity> SingleOrDefaultAsync<TKey>(TKey id);
-        Task<TEntity> SingleOrDefaultAsync(
+        Task<TEntity> SingleOrDefaultAndSelectAsync(
             Expression<Func<TEntity, bool>> predicate,
             CancellationToken cancellationToken = default
             );

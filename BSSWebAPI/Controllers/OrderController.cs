@@ -15,6 +15,9 @@ namespace BSSWebAPI.Controllers
             _orderService = orderService;
         }
 
+        [HttpGet("datatable")]
+        public Task<IEnumerable<OrderResource>> GetAll() => _orderService.GetAll();
+
         [HttpGet("get")]
         public Task<IEnumerable<OrderOptionsResource>> Get() => _orderService.Get();
 
@@ -30,11 +33,19 @@ namespace BSSWebAPI.Controllers
         [HttpPut("update/{id}")]
         public async Task UdpateDesignation(Guid id, [FromBody] SaveOrderResource updatedModel)
         {
-            var currentOrder = await _orderService.SingleOrDefaultAsync(id) ?? throw new Exception("Employee not found");
+            var currentOrder = await _orderService.SingleOrDefaultAsync(id) ?? throw new Exception("Order not found");
             await _orderService.Update(currentOrder, updatedModel);
         }
 
-        [HttpDelete("delete")]
+        [HttpPut("update-status/{id}")]
+        public async Task UdpateOrder(Guid id, [FromBody] OrderStatusVM updatedModel)
+        {
+            var existingFood = await _orderService.SingleOrDefaultAsync(id) ?? throw new Exception("Order not found");
+            await _orderService.UpdateStatus(existingFood, updatedModel);
+        }
+
+
+        [HttpDelete("delete/{id}")]
         public async Task Delete(Guid id)
         {
             var employeeToDelete = await _orderService.SingleOrDefaultAsync(id) ?? throw new Exception("Food not found");

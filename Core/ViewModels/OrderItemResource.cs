@@ -7,6 +7,5 @@
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public FoodResource Food { get; set; }
-        public FoodPackageResource FoodPackage { get; set; }
     }
 }
