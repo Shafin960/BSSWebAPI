@@ -1,11 +1,11 @@
 # Restaurant-Management-WEB API
 
 It's an ASP.NET WEB API-built restaurant management web application with a SQL Server management database. The main functionalities here are employee management, table management, food management and order management. The tables here are Employee, EmployeeTable, Tables, Orders and Foods. Also created the user using Entity Framework Core's Identity.\
-[Live Swagger Link](https://testapi.fashionlady.com.bd/swagger/index.html)/
+[Live Swagger Link](https://testapi.fashionlady.com.bd/swagger/index.html)
 
 
 
-# Install Restaurant-Managehttps://github.com/Shafin960/BSSWebAPI/issuesment-WEB API
+# Install Restaurant-Management-WEB API
 
 Clone Repository 
 ```bash
